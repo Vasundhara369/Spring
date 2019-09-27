@@ -1,0 +1,16 @@
+package com.example.demo.service.dataFetcher;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+import com.example.demo.model.*;
+import graphql.schema.DataFetcher;
+import graphql.schema.DataFetchingEnvironment;
+
+@Component
+public class allTasksDataFetcher implements DataFetcher<List<Tasks>>{
+public List<Tasks> get(DataFetchingEnvironment datafetchEnvironemnt)
+{
+	
+}
+}

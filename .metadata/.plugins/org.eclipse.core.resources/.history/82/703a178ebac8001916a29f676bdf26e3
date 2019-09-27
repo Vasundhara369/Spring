@@ -1,0 +1,36 @@
+package com.example.demo.resource;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Tasks;
+import com.example.demo.service.GraphQLService;
+
+import graphql.ExecutionResult;
+
+@RestController
+public class TodoResource {
+	
+	@Autowired
+	GraphQLService service;
+
+@PostMapping
+public ResponseEntity<Object> getAllTasks(@RequestBody String query)
+{
+	ExecutionResult ex=service.getGraphQL().execute(query);
+	return new ResponseEntity<>(ex,HttpStatus.OK);
+}
+}

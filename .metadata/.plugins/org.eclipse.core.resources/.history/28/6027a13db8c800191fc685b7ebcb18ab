@@ -1,0 +1,44 @@
+package com.example.demo.resource;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Tasks;
+import com.example.demo.service.GraphQLService;
+
+@Component
+public class TodoResource {
+	Configuration con;
+	ServiceRegistry sr;
+	SessionFactory sf;
+	Session session;
+	Transaction tx;
+	@Autowired
+GraphQLService service;
+	TodoResource()
+	{
+
+		con = new Configuration().configure().addAnnotatedClass(Tasks.class);
+		sr = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
+		sf = con.buildSessionFactory(sr);
+		session = sf.openSession();
+		tx = session.beginTransaction();
+		tx.commit();
+	}
+
+public List<Tasks> getallTasks() {
+	session = sf.openSession();
+	return service.getTasks(session);
+}
+}

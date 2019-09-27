@@ -1,0 +1,17 @@
+schema
+{
+  query:Query
+}
+type Query
+{
+  allTasks:[Tasks]
+  task(id:String):Tasks
+  addTask(id:String name:String):Tasks
+  editTask(id:String name:String):Tasks
+  deleteTask(id:String name:String):String
+}
+type Tasks
+{
+  taskId:String
+  taskName:String
+}

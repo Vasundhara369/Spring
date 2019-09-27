@@ -1,0 +1,14 @@
+schema
+{
+  query:Query
+}
+type Query
+{
+  allTasks:[Tasks]
+  task(id:String):Tasks
+}
+type Tasks
+{
+  taskId:String
+  taskName:String
+}
